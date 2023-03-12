@@ -1,0 +1,16 @@
+.usersData-div-1{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    
+    gap: 10px;
+}
+.userDetails-div-1{
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-left: 20px;
+}
+.usersBtn{
+    background-color: cornflowerblue;
+    width: 150px;
+    border-radius: 10px;
+}
