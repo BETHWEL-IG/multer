@@ -32,9 +32,23 @@ const postUsers=((req,res)=>{
         res.status(200).json(result)
     })
 })
+
+// inserting missing column profile pic
+
 const patchUsers=((req,res)=>{
-    res.status(200).json({msg:'updating Users'})
+    const id = req.params.id;
+    const profilePicturePath = req.file.filename;
+  
+    try {
+      const result =  pool.query('UPDATE users SET profile_picture_path = ? WHERE id = ?', [profilePicturePath, id]);
+      res.status(200).json({success:'Data inserted succesfully'});
+    //   should also deleted from uploads folder after update to the database
+    } catch (err) {
+      res.status(500).json(err);
+    }
 })
+
+// delete users
 const deleteUsers= ((req,res)=>{
     const id=req.params.id
     const sql=`DELETE FROM USERS WHERE USER_ID=?`
@@ -69,7 +83,7 @@ const signupUsers=((req,res)=>{
                 if(error) throw error
                 //create token
                 const token=createToken(results.insertId)
-                return res.status(200).json({ email, token})
+                return res.status(200).json({ email, token, id: results.insertId})
             })   
         }
     })
@@ -92,8 +106,8 @@ const loginUsers=((req,res)=>{
             if(!match){
                 res.status(400).json({status:"error", error:"Incorrect password "})
             }else{
-                const token= createToken(result[0].user_id)
-                res.status(200).json({ email, token})
+                const token= createToken(result[0].id)
+                res.status(200).json({ email, token, id: result[0].id })
             } 
         }
     })

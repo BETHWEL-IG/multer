@@ -5,7 +5,7 @@ import { RootLayout } from './layouts/rootLayout';
 import { Home } from './pages/home/home';
 import { NotFound } from './pages/home/notFound';
 import AddImageForm from './pages/photos/profilePhotos';
-
+import { ProfilePictureForm } from './components/login/updateProfile';
 
 const router=createBrowserRouter(
   
@@ -23,6 +23,10 @@ const router=createBrowserRouter(
       path='pictures'
       element={<AddImageForm />}
     
+      />
+      <Route 
+        path='profile'
+        element={<ProfilePictureForm/>}
       />
       <Route path='*' element={<NotFound/>}/>
       
